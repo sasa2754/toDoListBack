@@ -79,16 +79,18 @@ router
         
         try {
             const task = await toDoList.findById(id);
-            const taskCompleted = await toDoList.updateOne({ _id: id }, { completed: !task?.completed }, { new: true });
-            
             if (!task)
                 res.status(404).json({ message: 'Task não encontrada!'});
+
+            const taskCompleted = await toDoList.updateOne({ _id: id }, { completed: !task?.completed }, { new: true });
+            
 
             res.status(200).json(taskCompleted);
         } catch (error) {
             res.status(400).json({ message: 'Erro ao editar task: ', error });
         }
     })
+    
 
 
 export default router;
